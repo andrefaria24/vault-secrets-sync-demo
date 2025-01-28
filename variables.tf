@@ -78,23 +78,33 @@ variable "AZURE_REGION" {
 }
 
 variable "AZURE_CLIENT_ID" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "Azure App Registration Application (client) ID"
 }
 
 variable "AZURE_CLIENT_SECRET" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "Client Secret value used by Azure App Registration Application"
+}
+
+variable "AZURE_OBJECT_ID" {
+  type        = string
+  sensitive   = true
+  description = "Azure App Registration Object ID"
 }
 
 variable "AZURE_TENANT_ID" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "Azure Directory (tenant) ID"
 }
 
 variable "AZURE_SUBSCRIPTION_ID" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "Azure Subscription ID"
 }
 
 variable "AZURE_KEYVAULT_SKU" {

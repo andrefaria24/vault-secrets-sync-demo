@@ -5,6 +5,7 @@
 * **HashiCorp Cloud Platform Account**
 * **AWS Account**
 * **Microsoft Azure Account**
+* **App registration with client secret already created within Azure**
 
 ## Demo Setup
 
