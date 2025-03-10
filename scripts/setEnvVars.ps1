@@ -13,3 +13,7 @@ $outputObjects = $terraformOutput | ConvertFrom-Json
 [Environment]::SetEnvironmentVariable("AZR_CLIENT_ID",$outputObjects.azure_client_id.value,"User")
 [Environment]::SetEnvironmentVariable("AZR_CLIENT_SECRET",$outputObjects.azure_client_secret.value,"User")
 [Environment]::SetEnvironmentVariable("AZR_TENANT_ID",$outputObjects.azure_tenant_id.value,"User")
+
+[Environment]::SetEnvironmentVariable("GITHUB_ACCESS_TOKEN",$outputObjects.github_access_token.value,"User")
+[Environment]::SetEnvironmentVariable("GITHUB_REPO_NAME",$outputObjects.github_repo_name.value,"User")
+[Environment]::SetEnvironmentVariable("GITHUB_OWNER_NAME",$outputObjects.github_owner_name.value,"User")

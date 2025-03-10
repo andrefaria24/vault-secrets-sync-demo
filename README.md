@@ -6,11 +6,13 @@
 * **AWS Account**
 * **Microsoft Azure Account**
 * **App registration with client secret already created within Azure**
+* **GitHub Account + repository to be used for demo already created**
+* **GitHub Access token**
 
 ## Demo Setup
 
 1. Clone this repository
-2. Set terraform.tfvars values are required with AWS & Azure keys
+2. Set terraform.tfvars values required for HCP, AWS, Azure, and GitHub
 3. Initialize Terraform configuration
     ```
     terraform init
@@ -41,11 +43,12 @@
     ```
     vault write -f sys/activation-flags/secrets-sync/activate
     ```
-2. Configure AWS & Azure destinations within Secrets Sync
+2. Configure AWS, Azure, and GitHub destinations within Secrets Sync
     ```
     vault write sys/sync/destinations/aws-sm/aws-sm-1 `
       access_key_id=$env:AWS_ACCESS_KEY_ID `
       secret_access_key=$env:AWS_SECRET_ACCESS_KEY `
+      region="us-east-2"
       secret_name_template="{{ .MountAccessor }}_{{ .SecretBaseName }}"
     ```
     ```
@@ -55,21 +58,30 @@
       secret_name_template="{{ .MountAccessor }}_{{ .SecretBaseName }}" `
       tenant_id=$env:AZR_TENANT_ID
     ```
-3. Create an association between the destination and a secret to synchronize
+    ```
+    vault write sys/sync/destinations/gh/gh-rp-1 `
+      access_token=$env:GITHUB_ACCESS_TOKEN `
+      repository_owner=$env:GITHUB_OWNER_NAME `
+      repository_name=$env:GITHUB_REPO_NAME
+    ```
+3. Create an association between the destination and secret to be synchronized
     ```
     vault write sys/sync/destinations/aws-sm/aws-sm-1/associations/set mount='kvv2' secret_name='database/dev'
     ```
     ```
     vault write sys/sync/destinations/azure-kv/azr-kv-1/associations/set mount='kvv2' secret_name='database/dev'
     ```
-4. Log into AWS & Azure and take a navigate to the AWS Secrets Manager / Azure Key Vault to view secrets
+    ```
+    vault write sys/sync/destinations/gh/gh-rp-1/associations/set mount='kvv2' secret_name='database/dev'
+    ```
+4. Log into AWS, Azure, and GitHub and take a navigate to the AWS Secrets Manager / Azure Key Vault / GitHub Actions Secrets and Variables to view secrets
 
-5. Update the secret
+5. Update the secret within Vault
     ```
     vault kv put kvv2/database/dev api_key="foo" key_id="updated"
     ```
 
-6. Re open AWS / Azure and reload secret to view updates value
+6. Re open AWS / Azure /GitHub and reload secret to view updates value
 
 7. Use patch command to add additional fields
     ```
@@ -82,6 +94,9 @@
     ```
     ```
     vault write sys/sync/destinations/azure-kv/azr-kv-1/associations/remove mount="kvv2" secret_name="database/dev"
+    ```
+    ```
+    vault write sys/sync/destinations/gh/gh-rp-1/associations/remove mount="kvv2" secret_name="database/dev"
     ```
 
 ## Requirements

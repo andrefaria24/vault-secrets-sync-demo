@@ -115,3 +115,21 @@ variable "AZURE_KEYVAULT_SKU" {
     error_message = "The sku_name must be one of the following: standard, premium."
   }
 }
+
+variable "GITHUB_ACCESS_TOKEN" {
+  type        = string
+  sensitive   = true
+  description = "GitHub Access Token"
+}
+
+variable "GITHUB_OWNER_NAME" {
+  type        = string
+  sensitive   = false
+  description = "GitHub Owner Name"
+}
+
+variable "GITHUB_REPO_NAME" {
+  type        = string
+  sensitive   = false
+  description = "GitHub Repository Name"
+}

@@ -35,3 +35,18 @@ output "azure_tenant_id" {
   value     = var.AZURE_TENANT_ID
   sensitive = true
 }
+
+output "github_access_token" {
+  value     = var.GITHUB_ACCESS_TOKEN
+  sensitive = true
+}
+
+output "github_owner_name" {
+  value     = var.GITHUB_OWNER_NAME
+  sensitive = false
+}
+
+output "github_repo_name" {
+  value     = var.GITHUB_REPO_NAME
+  sensitive = false
+}
