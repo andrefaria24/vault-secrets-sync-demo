@@ -31,7 +31,7 @@
     .\scripts\setEnvVars.ps1
     ```
 
-7. Login to HVD Vault and confirm correct active node dddress
+7. Login to HVD Vault and confirm correct active node address
     ```
     vault login $Env:VAULT_TOKEN
     vault status
@@ -48,7 +48,7 @@
     vault write sys/sync/destinations/aws-sm/aws-sm-1 `
       access_key_id=$env:AWS_ACCESS_KEY_ID `
       secret_access_key=$env:AWS_SECRET_ACCESS_KEY `
-      region="us-east-2"
+      region="us-east-2" `
       secret_name_template="{{ .MountAccessor }}_{{ .SecretBaseName }}"
     ```
     ```
